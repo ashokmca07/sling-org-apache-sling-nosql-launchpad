@@ -16,9 +16,8 @@
 #  specific language governing permissions and limitations
 #  under the License.
 #
-# The :boot feature contains all things to bootstrap the installation.
-#
-[feature name=:boot]
+# The feature for Apache Sling
+[feature name=sling]
 
-[settings]
-  sling.run.mode.install.options=nosql-mongodb,nosql-couchbase
+[artifacts]
+    org.apache.sling/org.apache.sling.starter/11/slingstart

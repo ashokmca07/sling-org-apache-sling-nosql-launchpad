@@ -24,37 +24,37 @@
     <parent>
         <groupId>org.apache.sling</groupId>
         <artifactId>sling</artifactId>
-        <version>33</version>
+        <version>47</version>
         <relativePath/>
     </parent>
 
     <artifactId>org.apache.sling.nosql.launchpad</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>slingstart</packaging>
-
     <name>Apache Sling NoSQL Launchpad</name>
 
     <scm>
         <connection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-nosql-launchpad.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/sling-org-apache-sling-nosql-launchpad.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=sling-org-apache-sling-nosql-launchpad.git</url>
+        <tag>HEAD</tag>
     </scm>
     
     <properties>
-        <sling.java.version>7</sling.java.version>
+        <sling.java.version>11</sling.java.version>
+        <project.build.outputTimestamp>1</project.build.outputTimestamp>
+        <bnd.baseline.skip>true</bnd.baseline.skip>
     </properties>
 
     <dependencies>
-    
+        <!-- OSGi -->
         <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.launchpad</artifactId>
-            <type>slingfeature</type>
-            <classifier>slingfeature</classifier>
-            <version>8</version>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.framework</artifactId>
+            <version>1.10.0</version>
             <scope>provided</scope>
         </dependency>
-    
+
+        <!-- NoSQL Generic -->
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.nosql.generic</artifactId>
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
-            <version>3.2.2</version>
+            <version>3.12.10</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -101,7 +101,6 @@
             <version>3.3.2</version>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -110,7 +109,22 @@
             <plugin>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>slingstart-maven-plugin</artifactId>
+                <version>1.9.12</version>
                 <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>prepare-launchpad-package</id>
+                        <goals>
+                            <goal>prepare-package</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>build-launchpad-package</id>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <usePomDependencies>true</usePomDependencies>
                 </configuration>
